@@ -45,7 +45,29 @@ def set_cap(new_cap: int):
     except Exception as e:
         print("❌ Error while setting outflow cap:", e)
 
-# Example usage
 if __name__ == "__main__":
-    new_cap_value = 500  # Replace with the desired cap
-    set_cap(new_cap_value)
+    import sys
+    try:
+        if len(sys.argv) != 2:
+            print("❌ Missing input value from AI")
+            sys.exit(1)
+
+        new_value = int(float(sys.argv[1]))
+        print(f"AI suggested value: {new_value}")
+
+        confirm = input("Do you confirm this amount? (yes/no): ").strip().lower()
+        if confirm == "yes":
+            # Call burn.py with confirmed value
+            import subprocess
+            import sys
+            venv_python = sys.executable
+            subprocess.run([venv_python, "app/burn_tokens.py", str(new_value)], check=True)
+
+
+        else:
+            print("❌ User declined. Exiting gracefully.")
+            sys.exit(0)
+
+    except Exception as e:
+        print("❌ Error in set.py:", e)
+        sys.exit(1)
