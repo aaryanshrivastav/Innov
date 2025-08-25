@@ -119,6 +119,7 @@ def calculate_smart_hard_limit(btc_volatility, market_sentiment, btc_trend, curr
     FIXED: Treats user_balance as spending power, not total portfolio
     """
     profile = RISK_PROFILES[risk_profile]
+    user_balance=float(user_balance)
     
     # 1. Base allocation from spending balance (not total portfolio)
     base_crypto_allocation = user_balance * profile["max_crypto_allocation"]
@@ -352,10 +353,9 @@ def predict_optimal_allocation(btc_usd, usd_inr, user_balance, existing_btc_hold
         final_limit = min(smart_limit, lstm_based_limit)
         
         # Apply first-time bonus (if applicable)
+        first_time_bonus={"Conservative":1.2, "Moderate":1.3, "Aggressive":1.4}
         if first_time:
-            first_time_bonus={"Conservative":1.2, "Moderate":1.3, "Aggressive":1.4}
-
-        final_limit*=first_time_bonus[risk_profile.title()]        
+                final_limit*=first_time_bonus[risk_profile.title()]        
         return max(0.0, final_limit)
         
     except Exception as e:
