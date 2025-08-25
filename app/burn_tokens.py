@@ -2,7 +2,6 @@
 import json, os
 from web3 import Web3
 from dotenv import load_dotenv
-import subprocess
 
 # Load environment variables
 load_dotenv()
@@ -23,8 +22,6 @@ with open(address_file, "r") as f:
 
 contract = w3.eth.contract(address=contract_address, abi=abi)
 
-
-
 def burn(amount: int):
     try:
         nonce = w3.eth.get_transaction_count(acct.address)
@@ -43,33 +40,12 @@ def burn(amount: int):
             print(f"✅ Successfully burned {amount} tokens")
             print("Transaction Hash:", tx_hash.hex())
         else:
-            print("❌ Burn transaction failed")
+            print("Burn transaction failed")
 
     except Exception as e:
-        print("❌ Error while burning tokens:", e)
+        print("Error while burning tokens:", e)
 
-
+# Example usage
 if __name__ == "__main__":
-    import sys
-    import subprocess
-
-    # --- NEW: check if burn.py is called with a final confirmed amount ---
-    if len(sys.argv) == 2:
-        amount_to_burn = int(float(sys.argv[1]))
-        burn(amount_to_burn)
-
-    else:
-        # original user input flow
-        currency = input("Enter currency type: ")
-        amount_to_burn = int(float(input("Enter amount to burn: ")))  # ensures integer type
-
-        if currency.strip().lower() == "rupees":
-            burn(amount_to_burn)
-        else:
-            try:
-                # Run AI script which will handle sending output to set.py
-                venv_python = sys.executable
-                subprocess.run([venv_python, "app/ai.py", str(amount_to_burn)], check=True)
-
-            except Exception as e:
-                print("❌ Error while running AI script:", e)
+    amount_to_burn = 100  # Replace with desired burn amount
+    burn(amount_to_burn)
