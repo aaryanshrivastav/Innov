@@ -42,16 +42,16 @@ def mint(to: str, amount: int):
         receipt = w3.eth.wait_for_transaction_receipt(tx_hash)
 
         if receipt.status == 1:
-            print(f"✅ Successfully minted {amount} tokens to {to}")
+            print(f" Successfully minted {amount} tokens to {to}")
             print("Transaction Hash:", tx_hash.hex())
         else:
-            print("❌ Minting failed")
+            print(" Minting failed")
 
     except Exception as e:
-        print("❌ Error while minting:", e)
+        print(" Error while minting:", e)
 
 # Example usage
 if __name__ == "__main__":
-    recipient_address = "0x99bf0d3951523fe229232333F11a803c4023b079"
-    amount_to_mint = 1000
+    recipient_address = os.getenv("ACCOUNT_ADDRESS")
+    amount_to_mint=int(input("Enter the amount to mint: "))
     mint(recipient_address, amount_to_mint)
