@@ -15,7 +15,7 @@ if not w3.is_connected():
 
 # Create account object
 acct = w3.eth.account.from_key(PRIVATE_KEY)
-print("Connected ✅")
+print("Connected ")
 print("Account:", acct.address)
 print("Current block:", w3.eth.block_number)
 print("Chain ID:", w3.eth.chain_id)
@@ -44,7 +44,7 @@ try:
     estimated_gas = IndiCoin.constructor(green_fund_address).estimate_gas({"from": acct.address})
     print("Estimated gas:", estimated_gas)
 except Exception as e:
-    print("❌ Gas estimation failed, using default 5,000,000")
+    print(" Gas estimation failed, using default 5,000,000")
     estimated_gas = 5_000_000
 
 tx = IndiCoin.constructor(green_fund_address).build_transaction({
@@ -63,11 +63,11 @@ try:
     print("Transaction sent. Waiting for confirmation...")
     receipt = w3.eth.wait_for_transaction_receipt(tx_hash)
 except Exception as e:
-    raise RuntimeError("❌ Deployment failed:", e)
+    raise RuntimeError(" Deployment failed:", e)
 
 # -------------------- Deployment success --------------------
 contract_address = receipt.contractAddress
-print("✅ Contract deployed at:", contract_address)
+print(" Contract deployed at:", contract_address)
 print("Block Number:", receipt.blockNumber)
 print("Gas Used:", receipt.gasUsed)
 
@@ -75,4 +75,4 @@ print("Gas Used:", receipt.gasUsed)
 address_file = os.path.join(os.path.dirname(__file__), "deployed_address.txt")
 with open(address_file, "w") as f:
     f.write(contract_address)
-print("✅ Deployed address saved to:", address_file)
+#print(" Deployed address saved to:", address_file)
