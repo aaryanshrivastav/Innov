@@ -3,7 +3,6 @@ import os
 from web3 import Web3
 from dotenv import load_dotenv
 
-# -------------------- Load environment --------------------
 load_dotenv()
 RPC_URL = os.getenv("RPC_URL")
 PRIVATE_KEY = os.getenv("PRIVATE_KEY")
@@ -20,7 +19,6 @@ print("Account:", acct.address)
 print("Current block:", w3.eth.block_number)
 print("Chain ID:", w3.eth.chain_id)
 
-# -------------------- Load contract ABI + Bytecode --------------------
 abi_path = os.path.join(os.path.dirname(__file__), "../abi/IndiCoin.json")
 bytecode_path = os.path.join(os.path.dirname(__file__), "../bytecode/IndiCoin.bin")
 
@@ -31,7 +29,6 @@ with open(bytecode_path) as f:
 
 IndiCoin = w3.eth.contract(abi=abi, bytecode=bytecode)
 
-# -------------------- Build transaction --------------------
 initial_supply = 1_000_000  # example: 1 million tokens
 
 nonce = w3.eth.get_transaction_count(acct.address)
@@ -55,8 +52,6 @@ tx = IndiCoin.constructor(green_fund_address).build_transaction({
 })
 
 
-
-# -------------------- Sign & send transaction --------------------
 signed_tx = acct.sign_transaction(tx)
 try:
     tx_hash = w3.eth.send_raw_transaction(signed_tx.raw_transaction)
@@ -65,7 +60,6 @@ try:
 except Exception as e:
     raise RuntimeError(" Deployment failed:", e)
 
-# -------------------- Deployment success --------------------
 contract_address = receipt.contractAddress
 print(" Contract deployed at:", contract_address)
 print("Block Number:", receipt.blockNumber)

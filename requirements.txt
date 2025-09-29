@@ -21,3 +21,5 @@ hexbytes==0.3.1
 # Additional stable dependencies
 requests==2.31.0
 setuptools==68.0.0
+flask>=2.0.0
+python-dotenv>=1.0.0
