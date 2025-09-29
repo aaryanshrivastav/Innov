@@ -1,4 +1,3 @@
-# app/mint_tokens.py
 import json, os
 from web3 import Web3
 from web3.middleware.proof_of_authority import ExtraDataToPOAMiddleware

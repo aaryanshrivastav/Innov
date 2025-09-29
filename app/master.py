@@ -1,4 +1,3 @@
-# app/run_stage3_master.py
 import subprocess
 import time
 

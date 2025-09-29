@@ -1,4 +1,3 @@
-# app/burn_tokens.py
 import json, os
 from web3 import Web3
 from dotenv import load_dotenv

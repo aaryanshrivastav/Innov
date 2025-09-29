@@ -1,4 +1,3 @@
-# app/read_data.py
 import json, os, sys
 from web3 import Web3
 from dotenv import load_dotenv
